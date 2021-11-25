@@ -10,10 +10,6 @@ red = (255, 0, 0)
 make game of snake on 8x8 grid
 """
 
-def make_map():
-    logo = [blank]*64
-    return logo
-
 import random
 def make_apple():
   apple = (random.randint(0, 7), random.randint(0, 7))
@@ -54,10 +50,10 @@ def update_map(apple, snake):
   
   return map
 
-x = 3
-y = 3
+spawn_x = 3
+spawn_y = 3
 
-snake_body = [(x, y), (x-1, y), (x-2, y)]
+snake_body = [(spawn_x, spawn_y), (spawn_x-1, spawn_y), (spawn_x-2, spawn_y)]
 apple = make_apple()
 map = update_map(apple, snake_body)
 got_apple = False
