@@ -23,7 +23,7 @@ def make_apple():
   
   return apple
 
-def make_snake(dir, snake_body):
+def make_snake(dir, snake_body, got_apple):
   new_snake = [(x, y) for x, y in snake_body]
   
   if dir == "up":
@@ -39,10 +39,11 @@ def make_snake(dir, snake_body):
     s.show_message("You died!")
     exit(1)
 
-  new_snake = new_snake[:-1]
+  if got_apple:
+    return new_snake
+  else:
+    return new_snake[:-1]
   
-  return new_snake
-
 def update_map(apple, snake):
   map = [blank]*64
   
@@ -59,6 +60,7 @@ y = 3
 snake_body = [(x, y), (x-1, y), (x-2, y)]
 apple = make_apple()
 map = update_map(apple, snake_body)
+got_apple = False
 
 from time import sleep
 while True:
@@ -66,19 +68,12 @@ while True:
     event = s.stick.wait_for_event()
     
     if event.action == "pressed":
-      snake_body = make_snake(event.direction, snake_body)
+      snake_body = make_snake(event.direction, snake_body, got_apple)
+      got_apple = False
     
     if snake_body[0] == apple:
-      if snake_body[-1][0] > snake_body[-2][0]:
-        snake_body.append((snake_body[-1][0]+1, snake_body[-1][1]))
-      elif snake_body[-1][0] < snake_body[-2][0]:
-        snake_body.append((snake_body[-1][0]-1, snake_body[-1][1]))
-      elif snake_body[-1][1] > snake_body[-2][1]:
-        snake_body.append((snake_body[-1][0], snake_body[-1][1]+1))
-      elif snake_body[-1][1] > snake_body[-2][1]:
-        snake_body.append((snake_body[-1][0], snake_body[-1][1]-1))
-      
       apple = make_apple()
+      got_apple = True
     elif snake_body[0] in snake_body[1:]:
         s.show_message("You died!")
         break
