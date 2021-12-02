@@ -16,3 +16,4 @@ def get_counties():
 def remove_duplicates(list):
     return list[:1] + [item for item in list[1:] if item not in list[:1]]
 print(remove_duplicates(get_counties()))
+#
