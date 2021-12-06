@@ -18,3 +18,16 @@ def verifier_mdp(*args):
             return True
         else:
             return False
+
+def enregistrer_code(code):
+    savefile = "secret.txt"
+
+    with open(savefile, 'w') as f:
+        f.write(code)
+
+def lire_code(*args):
+    if verifier_mdp(*args):
+        savefile = "secret.txt"
+
+        with open(savefile, 'r') as f:
+            return f.read()
