@@ -15,6 +15,8 @@ def lister_produits():
         for line in f:
             product_list.append(line.strip())
 
+    return product_list
+
 def supprimer_produit(produit):
     filepath = "liste_de_course.txt"
     with open(filepath, "r") as f:
