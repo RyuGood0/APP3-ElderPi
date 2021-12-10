@@ -48,7 +48,16 @@ def list_to_dict(both_lists):
     values = both_lists[1]
 
     for name,value in zip(names,values):
-        combined_dict[''.join(name)] = value
+        combined_dict["".join(name)] = value
     open('countries_dict.txt','w').write(str(combined_dict))
     return combined_dict
+
+
+import json
+def all_countries():
+    f = open("countries_dict.json", "r")
+    raw_dict = json.load(f)
+    to_export = "(" + "".join(key + " | " for key in raw_dict.keys()) + ")"
+    print(to_export)
+all_countries()
 
