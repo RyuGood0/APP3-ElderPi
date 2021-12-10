@@ -11,17 +11,21 @@ def creer_mdp(vars):
 def verifier_mdp(mdp):
     savefile = "auth.sess"
 
-    with open(savefile, 'r') as f:
-        if hashing(mdp) == f.read():
-            return True
-        else:
-            return False
+    try:
+        with open(savefile, 'r') as f:
+            if hashing(mdp) == f.read():
+                return True
+            else:
+                return False
+    except:
+        return False
 
-def enregistrer_code(code, vars):
+def enregistrer_code(vars):
     savefile = "secret.txt"
 
-    mdp = ''.join(arg for arg in vars.values())
+    mdp = ''.join(arg for arg in vars.values() if arg in ["mdpun", "mdpdeux", "mdptrois"])
 
+    code = ''.join(arg for arg in vars.values() if not (arg in ["codeun", "codedeux", "codetrois"]))
     with open(savefile, 'w') as f:
         f.write(encode(mdp, code))
 

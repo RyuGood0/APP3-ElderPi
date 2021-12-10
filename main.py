@@ -15,5 +15,10 @@ while True:
     try:
         intent = rhasspy.speech_to_intent()
         print(intent)
-    except:
-        pass
+        if intent["name"] == "AgeDeMort":
+            age_de_mort(intent["variables"])
+    except Exception as e:
+        if e == KeyboardInterrupt:
+            break
+        else:
+            print("La phrase n'a pas été")
