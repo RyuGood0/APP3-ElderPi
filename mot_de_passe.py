@@ -25,7 +25,7 @@ def enregistrer_code(vars):
 
     mdp = ''.join(arg for arg in vars.values() if arg in ["mdpun", "mdpdeux", "mdptrois"])
 
-    code = ''.join(arg for arg in vars.values() if not (arg in ["codeun", "codedeux", "codetrois"]))
+    code = ''.join(arg for arg in vars.values() if not (arg in ["codeun", "codedeux", "codetrois", "codequatre"]))
     with open(savefile, 'w') as f:
         f.write(encode(mdp, code))
 
