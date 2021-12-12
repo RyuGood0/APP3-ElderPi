@@ -21,18 +21,19 @@ while True:
 
 		intention = intent["name"]
 
-		if intention == "Lancement":
+		if started_session == False and intention == "Lancement":
+			print("Lancement de la session.")
 			started_session = True
 			rhasspy.text_to_speech("Bonjour, je suis votre assistant. Veuillez enregistrer votre mot de passe pour la session.")
-
-		if started_session == True:
-			if saved_password == None:
+		elif started_session == True:
+			if saved_password == None and is_mdp():
 				if intention == "EnregistrerMDP":
 					saved_password = intent["variables"]
-			else:
+			elif saved_password == None and not is_mdp():
 				if intention == "NouveauMDP":
 					creer_mdp(intent["variables"])
-				elif intention == "NouveauCode":
+			else:					
+				if intention == "NouveauCode":
 					enregistrer_code(intent["variables"], saved_password)
 				elif intention == "LireCode":
 					lire_code(intent["variables"], saved_password)
