@@ -1,3 +1,4 @@
+import os
 from crypto import *
 
 def creer_mdp(vars):
@@ -7,6 +8,9 @@ def creer_mdp(vars):
 
     with open(savefile, 'w') as f:
         f.write(hashing(mdp))
+
+def is_mdp():
+    os.path.exists("auth.sess")
 
 def verifier_mdp(mdp):
     savefile = "auth.sess"
