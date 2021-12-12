@@ -10,7 +10,7 @@ def creer_mdp(vars):
         f.write(hashing(mdp))
 
 def is_mdp():
-    os.path.exists("auth.sess")
+    return os.path.exists("auth.sess")
 
 def verifier_mdp(mdp):
     savefile = "auth.sess"

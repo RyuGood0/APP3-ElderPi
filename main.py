@@ -1,6 +1,7 @@
 import rhasspy
 from sense_hat import SenseHat
 from mot_de_passe import *
+
 sense = SenseHat()
 
 # Lance l'apprentissage du fichier sentences.ini. Commentez cette partie si vous souhaitez ne pas le lancer 
