@@ -12,6 +12,7 @@ make game of snake on 8x8 grid
 
 import random
 def make_apple():
+  # on crée une pomme au hasard
   apple = (random.randint(0, 7), random.randint(0, 7))
 
   while apple in snake_body:
@@ -20,6 +21,7 @@ def make_apple():
   return apple
 
 def make_snake(dir, snake_body, got_apple):
+  # on crée le serpent
   new_snake = [(x, y) for x, y in snake_body]
   
   if dir == "up":
@@ -33,7 +35,7 @@ def make_snake(dir, snake_body, got_apple):
       
   if new_snake[0][0] > 7 or new_snake[0][0] < 0 or new_snake[0][1] < 0 or new_snake[0][1] > 7:
     s.show_message("You died!")
-    exit(1)
+    return None
 
   if got_apple:
     return new_snake
@@ -41,6 +43,7 @@ def make_snake(dir, snake_body, got_apple):
     return new_snake[:-1]
   
 def update_map(apple, snake):
+  # on met à jour la map avec les nouvelles positions de la pomme et du serpent
   map = [blank]*64
   
   for part in snake:
@@ -59,21 +62,25 @@ map = update_map(apple, snake_body)
 got_apple = False
 
 from time import sleep
-while True:
-    s.set_pixels(map)
-    event = s.stick.wait_for_event()
-    
-    if event.action == "pressed":
-      snake_body = make_snake(event.direction, snake_body, got_apple)
-      got_apple = False
-    
-    if snake_body[0] == apple:
-      apple = make_apple()
-      got_apple = True
-    elif snake_body[0] in snake_body[1:]:
-        s.show_message("You died!")
-        break
+def snake():
+  # on crée une boucle de jeu qui fait tourner le jeu
+  while True:
+      s.set_pixels(map)
+      event = s.stick.wait_for_event()
       
-    map = update_map(apple, snake_body)
+      if event.action == "pressed":
+        snake_body = make_snake(event.direction, snake_body, got_apple)
+        if snake_body == None:
+          return
+        got_apple = False
       
-    sleep(0.1)
+      if snake_body[0] == apple:
+        apple = make_apple()
+        got_apple = True
+      elif snake_body[0] in snake_body[1:]:
+          s.show_message("You died!")
+          return
+        
+      map = update_map(apple, snake_body)
+        
+      sleep(0.1)
