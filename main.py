@@ -19,6 +19,7 @@ started_session = False
 saved_password = None
 
 while True:
+<<<<<<< HEAD
 		try:
 				intent = rhasspy.speech_to_intent()
 				print(intent)
