@@ -8,15 +8,14 @@ def ajouter_produit(produit):
     with open(filepath, "a") as f:
         f.write(produit + "\n")
 
+from collections import Counter
 def lister_produits():
     filepath = "liste_de_course.txt"
-    product_list = []
     with open(filepath, "r") as f:
-        for line in f:
-            product_list.append(line.strip())
+        product_list = f.read().splitlines()
 
-    return product_list
-
+    return Counter(product_list)
+    
 def supprimer_produit(produit):
     filepath = "liste_de_course.txt"
     with open(filepath, "r") as f:
